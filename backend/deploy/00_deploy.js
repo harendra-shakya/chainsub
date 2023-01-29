@@ -12,24 +12,12 @@ module.exports = async ({ deployments }) => {
     const chainId = network.config.chainId
     const tokensToBeMinted = networkConfig[chainId]["tokensToBeMinted"]
 
-    //deploy Simplecoin
-    const SimpleCoin = await ethers.getContractFactory('SimpleCoin', wallet);
-    console.log('Deploying Simplecoin...');
-    const simpleCoin = await SimpleCoin.deploy(tokensToBeMinted);
-    await simpleCoin.deployed()
-    console.log('SimpleCoin deployed to:', simpleCoin.address);
+    //deploy Factory
+    const Factory = await ethers.getContractFactory('Factory', wallet);
+    console.log('Deploying Factory...');
+    const factory = await Factory.deploy();
+    await factory.deployed()
+    console.log('Factory deployed to:', factory.address);
+    
 
-    //deploy FilecoinMarketConsumer
-    const FilecoinMarketConsumer = await ethers.getContractFactory('FilecoinMarketConsumer', wallet);
-    console.log('Deploying FilecoinMarketConsumer...');
-    const filecoinMarketConsumer = await FilecoinMarketConsumer.deploy();
-    await filecoinMarketConsumer.deployed()
-    console.log('FilecoinMarketConsumer deployed to:', filecoinMarketConsumer.address);
-
-    //deploy DealRewarder
-    const DealRewarder = await ethers.getContractFactory('DealRewarder', wallet);
-    console.log('Deploying DealRewarder...');
-    const dealRewarder = await DealRewarder.deploy();
-    await dealRewarder.deployed()
-    console.log('DealRewarder deployed to:', dealRewarder.address);
 }
