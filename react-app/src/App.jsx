@@ -36,6 +36,7 @@ import ChainSub from "./contracts/ChainSub.json";
 import Factory from "./contracts/Factory.json";
 import { useEventListener } from "eth-hooks/events/useEventListener";
 import Address from "./components/Address";
+import Web3Upload from "./components/Web3Upload";
 
 const { ethers } = require("ethers");
 
@@ -393,8 +394,8 @@ function App(props) {
         <Menu.Item key="/">
           <Link to="/">App Home</Link>
         </Menu.Item>
-        <Menu.Item key="/subgraph">
-          <Link to="/subgraph">Subgraph</Link>
+        <Menu.Item key="/upload">
+          <Link to="/upload">Upload</Link>
         </Menu.Item>
       </Menu>
 
@@ -447,13 +448,9 @@ function App(props) {
           </div>
         </Route>
 
-        <Route path="/subgraph">
-          <Subgraph
-            subgraphUri={props.subgraphUri}
-            tx={tx}
-            writeContracts={writeContracts}
-            mainnetProvider={mainnetProvider}
-          />
+        <Route path="/upload">
+          {/* pass userSigner into the Web3Upload component */}
+          <Web3Upload userSigner={userSigner} />
         </Route>
       </Switch>
 

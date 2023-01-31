@@ -21,6 +21,7 @@
     "@arbitrum/sdk": "^2.0.0",
     "@gnosis.pm/safe-apps-sdk": "^7.8.0",
     "@gnosis.pm/safe-apps-web3modal": "^17.0.4",
+    "@medusa-network/medusa-sdk": "^0.0.2",
     "@portis/web3": "^4.0.5",
     "@ramp-network/ramp-instant-sdk": "^2.2.0",
     "@testing-library/jest-dom": "^5.11.4",
@@ -45,6 +46,8 @@
     "graphql": "^15.3.0",
     "ipfs-http-client": "^55.0.0",
     "isomorphic-fetch": "^3.0.0",
+    "js-base64": "^3.7.4",
+    "minimist": "^1.2.5",
     "node-watch": "^0.7.1",
     "postcss": "^8.2.6",
     "qrcode.react": "^1.0.0",
@@ -57,7 +60,9 @@
     "react-scripts": "4.0.1",
     "searchico": "^1.2.1",
     "walletlink": "^2.1.5",
-    "web3modal": "^1.9.10"
+    "web3.storage": "^4.4.0",
+    "web3modal": "^1.9.10",
+    "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {
     "@apollo/client": "^3.3.21",
