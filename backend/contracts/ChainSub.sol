@@ -70,6 +70,8 @@ contract ChainSub is OwnableUpgradeable, IEncryptionClient, PullPayment {
 
     mapping(address => Subscription) public subscriptions;
 
+    IEncryptionOracle public oracle;
+
     uint256 min;
 
     //create a variable for the medusa oracle address called oracle, the address is 0xd466A3C66ad402Aa296ab7544bcE90BBE298F6A0
@@ -84,8 +86,6 @@ contract ChainSub is OwnableUpgradeable, IEncryptionClient, PullPayment {
 
     function initialize(uint _tier1Price, uint _tier2Price, uint _tier3Price) external initializer {
         __Ownable_init();
-        IEncryptionOracle oracle;
-
         min = _tier3Price;
         tier1Price = _tier1Price;
         tier2Price = _tier2Price;
