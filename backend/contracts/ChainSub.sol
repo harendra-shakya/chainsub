@@ -84,6 +84,7 @@ contract ChainSub is OwnableUpgradeable, IEncryptionClient, PullPayment {
 
     function initialize(uint _tier1Price, uint _tier2Price, uint _tier3Price) external initializer {
         __Ownable_init();
+        IEncryptionOracle oracle;
 
         min = _tier3Price;
         tier1Price = _tier1Price;
@@ -147,7 +148,7 @@ contract ChainSub is OwnableUpgradeable, IEncryptionClient, PullPayment {
     /// @dev This is the public key that sellers should use to encrypt their listing ciphertext
     /// @dev Note: This feels like a nice abstraction, but it's not strictly necessary
     function publicKey() external view returns (G1Point memory _publicKey) {
-        return IEncryptionOracle(oracle).distributedKey();
+        return oracle.distributedKey();
     }
 
     //payable receive function that will allow the user to pay the subscription fee and will give them the subscription tier they paid for

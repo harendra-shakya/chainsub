@@ -20,7 +20,8 @@ contract Factory is Ownable {
     function createSubscriptionContract(
         uint tier1Price,
         uint tier2Price,
-        uint tier3Price
+        uint tier3Price,
+        IEncryptionOracle oracle
     ) external {
         address clone = Clones.clone(chainSubImplementation);
         ChainSub(payable(clone)).initialize(tier1Price, tier2Price, tier3Price);
