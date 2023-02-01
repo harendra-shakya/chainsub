@@ -84,8 +84,10 @@ contract ChainSub is OwnableUpgradeable, IEncryptionClient, PullPayment {
     uint256 public tier2Duration = 30 days;
     uint256 public tier3Duration = 30 days;
 
-    function initialize(uint _tier1Price, uint _tier2Price, uint _tier3Price) external initializer {
+    function initialize(uint _tier1Price, uint _tier2Price, uint _tier3Price, IEncryptionOracle _oracle) external initializer {
         __Ownable_init();
+
+        oracle = _oracle;
         min = _tier3Price;
         tier1Price = _tier1Price;
         tier2Price = _tier2Price;
