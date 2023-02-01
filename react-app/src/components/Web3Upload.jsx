@@ -39,10 +39,9 @@ const Web3Upload = ({ userSigner }) => {
   const [ipfsCid, setIpfsCid] = useState(); //ipfs cid
 
   //export HGamalEVMCipher from medusa sdk as an interface
-  
 
   const medusaOracleAddress = "0xd466a3c66ad402aa296ab7544bce90bbe298f6a0";
-  const applicationContractAddress = "0x46c6d5D03C8A373A83861FD0465f8A6B468f5842";
+  const applicationContractAddress = "0x1792FFE3E317520F81DFBf86fEB0CCBFD9Ea5DFC";
 
   //async function to fetch the public key from medusa
   const fetchMedusaPublicKey = async () => {
@@ -56,7 +55,10 @@ const Web3Upload = ({ userSigner }) => {
     setStatus("Encrypting...");
     const medusa = await Medusa.init(medusaOracleAddress, userSigner);
     const key = await medusa.signForKeypair();
-    const { encryptedData, encryptedKey } = await medusa.encrypt(new TextEncoder().encode(file), applicationContractAddress);
+    const { encryptedData, encryptedKey } = await medusa.encrypt(
+      new TextEncoder().encode(file),
+      applicationContractAddress,
+    );
     setHash(encryptedData);
     setStatus("Encrypted");
     const b64EncryptedData = Base64.fromUint8Array(encryptedData);
@@ -68,7 +70,7 @@ const Web3Upload = ({ userSigner }) => {
 
     console.log("This is medusa", medusa);
 
-    //create a tupule of the encrypted data it should look like this, 
+    //create a tupule of the encrypted data it should look like this,
     //((encryptedData.encryptedKey.random.x._hex, encryptedData.encryptedKey.random.y._hex), encryptedData.encryptedKey.cipher._hex, (encryptedData.encryptedKey.random2.x._hex, encryptedData.encryptedKey.random2.y._hex), (encryptedData.encryptedKey.dleq.e._hex, encryptedData.encryptedKey.dleq.f._hex))
 
     const encryptedKeyTupule = [
@@ -80,30 +82,25 @@ const Web3Upload = ({ userSigner }) => {
 
     setEncryptedKeyState(encryptedKey);
 
-
     //log the encrypted data tuple
 
     console.log(encryptedKeyTupule);
-
   };
 
   const handleEncryptToMedusa = async () => {
     setStatus("Encrypting to Medusa...");
     const medusa = await Medusa.init(medusaOracleAddress, userSigner);
-    const chainSub = await new ethers.Contract("0x46c6d5D03C8A373A83861FD0465f8A6B468f5842", ChainSub, userSigner);
+    const chainSub = await new ethers.Contract("0x1792FFE3E317520F81DFBf86fEB0CCBFD9Ea5DFC", ChainSub, userSigner);
     const chainSubWithSigner = await chainSub.connect(userSigner);
 
     try {
-      const cipherID = await chainSubWithSigner.submitEntry(encryptedKeyState, ipfsCid);
+      const cipherID = await chainSubWithSigner.submitEntry(encryptedKeyState);
       console.log(cipherID);
       setStatus("Encrypted to Medusa");
-
     } catch (error) {
       console.log(error);
     }
-
   };
-    
 
   //handle decrypting the file
 
@@ -115,15 +112,7 @@ const Web3Upload = ({ userSigner }) => {
 
     //use HGamalEVMCipher to decrypt the file it is an interface for the data found in the encryptedKey
 
-
-
-
-
-
-
-    //use medusa sdk to decrypt the file 
-
-
+    //use medusa sdk to decrypt the file
   };
 
   //handle uploading the encrypted file to ipfs
@@ -134,11 +123,9 @@ const Web3Upload = ({ userSigner }) => {
     console.log("64", encryptedData64);
     console.log("file", file);
 
-    const beans = JSON.stringify(hash);
+    const fileA = new File([encryptedData64], "beans", { type: "text/plain" });
 
-    console.log(beans);
-
-    const cid = await client.put([file]);
+    const cid = await client.put([fileA]);
     setIpfsCid(cid);
     console.log(cid);
     setStatus("Uploaded");

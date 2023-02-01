@@ -47,7 +47,7 @@ interface IEncryptionOracle {
     /// @notice submit a ciphertext that can be retrieved at the given link and
     /// has been created by this encryptor address. The ciphertext proof is checked
     /// and if correct, being signalled to Medusa.
-    function submitCiphertext(Ciphertext calldata _cipher, bytes calldata _link, address _encryptor)
+    function submitCiphertext(Ciphertext calldata _cipher, address _encryptor)
         external
         returns (uint256);
 
@@ -70,7 +70,7 @@ contract ChainSub is OwnableUpgradeable, IEncryptionClient, PullPayment {
 
     mapping(address => Subscription) public subscriptions;
 
-    IEncryptionOracle public oracle;
+    IEncryptionOracle public oracle = IEncryptionOracle(0xd466A3C66ad402Aa296ab7544bcE90BBE298F6A0);
 
     uint256 min;
 
@@ -118,10 +118,9 @@ contract ChainSub is OwnableUpgradeable, IEncryptionClient, PullPayment {
     /// @dev Submits a ciphertext to the oracle, stores a listing, and emits an event
     /// @return cipherId The id of the ciphertext associated with the new listing
     function submitEntry(
-        Ciphertext calldata cipher,
-        string calldata uri
+        Ciphertext calldata cipher
     ) external returns (uint256) {
-        uint256 cipherId = oracle.submitCiphertext(cipher, bytes(uri), msg.sender);
+        uint256 cipherId = IEncryptionOracle(0xd466A3C66ad402Aa296ab7544bcE90BBE298F6A0).submitCiphertext(cipher, msg.sender);
         return cipherId;
     }
 
@@ -150,8 +149,10 @@ contract ChainSub is OwnableUpgradeable, IEncryptionClient, PullPayment {
     /// @dev This is the public key that sellers should use to encrypt their listing ciphertext
     /// @dev Note: This feels like a nice abstraction, but it's not strictly necessary
     function publicKey() external view returns (G1Point memory _publicKey) {
-        return oracle.distributedKey();
+        return IEncryptionOracle(0xd466A3C66ad402Aa296ab7544bcE90BBE298F6A0).distributedKey();
     }
+
+
 
     //payable receive function that will allow the user to pay the subscription fee and will give them the subscription tier they paid for
     //reverts if not enough ether sent, returns any extra ether sent
