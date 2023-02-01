@@ -8,10 +8,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract Factory is Ownable {
     address private immutable chainSubImplementation;
     mapping(address => address) private subscriptionContracts; // owner -> subscription contract
+    IEncryptionOracle public oracle;
 
     event CreateSubscription(address cloneAddress, address ownedBy);
 
-    constructor() {
+    constructor(IEncryptionOracle _oracle) {
+        oracle = _oracle;
         chainSubImplementation = address(new ChainSub());
     }
 
