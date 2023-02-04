@@ -3,6 +3,8 @@ module.exports = {
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}", "./utils/**/*.{js,ts,jsx,tsx}"],
   plugins: [require("daisyui")],
   darkTheme: "scaffoldEthDark",
+  darkMode: "class",
+
   // DaisyUI theme colors
   daisyui: {
     themes: [
@@ -92,6 +94,8 @@ module.exports = {
     extend: {
       fontFamily: {
         "bai-jamjuree": ["Bai Jamjuree", "sans-serif"],
+        CircularMedium: "Circular Medium",
+        Montserrat: "Montserrat",
       },
       keyframes: {
         grow: {

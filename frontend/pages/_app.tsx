@@ -44,6 +44,7 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
             <main className="flex flex-col flex-1">
               <Component {...pageProps} />
             </main>
+            {/* <Footer /> */}
           </div>
         </ChakraProvider>
 
