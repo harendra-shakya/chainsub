@@ -9,6 +9,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { appChains } from "~~/services/web3/wagmiConnectors";
 import { wagmiClient } from "~~/services/web3/wagmiClient";
 import Header from "~~/components/Header";
+import Navbar from "~~/components/Navbar";
 import Footer from "~~/components/Footer";
 
 import { useEffect } from "react";
@@ -16,6 +17,8 @@ import { useAppStore } from "~~/services/store/store";
 import { useEthPrice } from "~~/hooks/scaffold-eth";
 
 import NextNProgress from "nextjs-progressbar";
+import { ChakraProvider } from "@chakra-ui/react";
+import Head from "next/head";
 
 const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
   const price = useEthPrice();
@@ -31,13 +34,19 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
     <WagmiConfig client={wagmiClient}>
       <NextNProgress />
       <RainbowKitProvider chains={appChains.chains}>
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex flex-col flex-1">
-            <Component {...pageProps} />
-          </main>
-          <Footer />
-        </div>
+        <ChakraProvider>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <Head>
+              <title>CoffeeTown</title>
+              <meta name="description" content="Get support from your audience in crypto" />
+            </Head>
+            <main className="flex flex-col flex-1">
+              <Component {...pageProps} />
+            </main>
+          </div>
+        </ChakraProvider>
+
         <Toaster />
       </RainbowKitProvider>
     </WagmiConfig>
