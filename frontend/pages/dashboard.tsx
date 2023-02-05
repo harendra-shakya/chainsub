@@ -74,7 +74,7 @@ export default function Dashboard({}) {
 
   return (
     <main className="p-36 min-h-[calc(100vh-163px)] flex flex-col justify-between">
-      <div className="hidden left-[5%] pt-24 text-2xl scale-150 md:scale-130 md:mx-auto top-24 lg:block lg:absolute ">
+      <div className="">
         <Sidebar username={username} page="dashboard" />
       </div>
 

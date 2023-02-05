@@ -14,65 +14,67 @@ export default function Sidebar(props) {
   const username = props.username;
 
   return (
-    <div className="m-8 font-CircularMedium mt-16 dark:text-slate-50 tracking-wide">
-      <ul className="items-center justify-center space-y-4  ">
-        <li className="text-sm flex bg-white rounded-md py-2 px-2 shadow">
-          <HomeIcon className="mr-2 text-lg " />
-          <Link className="" href="/dashboard">
-            Dashboard
-          </Link>
-        </li>
+    <div className="hidden left-[5%] pt-24 text-2xl scale-150 md:scale-130 md:mx-auto top-24 lg:block lg:absolute">
+      <div className="m-8 font-CircularMedium mt-16 dark:text-slate-50 tracking-wide">
+        <ul className="items-center justify-center space-y-4  ">
+          <li className="text-sm flex bg-white rounded-md py-2 px-2 shadow">
+            <HomeIcon className="mr-2 text-lg " />
+            <Link className="" href="/dashboard">
+              Dashboard
+            </Link>
+          </li>
 
-        <li className="text-sm flex bg-white rounded-md py-2 px-2">
-          <AiFillLayout className="mr-2 text-lg" />
-          <Link className="hover:text-orange-500 transition-all" href={`/${username}`}>
-            View page
-          </Link>
-          <HiOutlineExternalLink className="ml-2" />
-        </li>
-        <li className="text-sm flex bg-white rounded-md py-2 px-2">
-          <RiFileLockFill className="mr-2 text-lg" />
-          <Link className="hover:text-orange-500 transition-all" href="/membership">
-            Membership
-          </Link>
-        </li>
-        <li className="text-sm flex bg-white rounded-md py-2 px-2">
-          <DocumentIcon className="mr-2 text-lg" />
-          <Link className="hover:text-orange-500 transition-all" href="/posts">
-            Post
-          </Link>
-        </li>
-      </ul>
+          <li className="text-sm flex bg-white rounded-md py-2 px-2">
+            <AiFillLayout className="mr-2 text-lg" />
+            <Link className="hover:text-orange-500 transition-all" href={`/${username}`}>
+              View page
+            </Link>
+            <HiOutlineExternalLink className="ml-2" />
+          </li>
+          <li className="text-sm flex bg-white rounded-md py-2 px-2">
+            <RiFileLockFill className="mr-2 text-lg" />
+            <Link className="hover:text-orange-500 transition-all" href="/membership">
+              Membership
+            </Link>
+          </li>
+          <li className="text-sm flex bg-white rounded-md py-2 px-2">
+            <DocumentIcon className="mr-2 text-lg" />
+            <Link className="hover:text-orange-500 transition-all" href="/posts">
+              Post
+            </Link>
+          </li>
+        </ul>
 
-      <h4 className="mt-10 mb-4 text-gray-400 font-Montserrat text-xs">SETTINGS</h4>
-      <ul className="items-center justify-center space-y-4 ">
-        <li className="text-sm flex bg-white rounded-md py-2 px-2">
-          <ProfileIcon className="mr-2 text-lg" />
-          <Link className="hover:text-orange-500 transition-all" href="/profile">
-            Profile
-          </Link>
-        </li>
-      </ul>
+        <h4 className="mt-10 mb-4 text-gray-400 font-Montserrat text-xs">SETTINGS</h4>
+        <ul className="items-center justify-center space-y-4 ">
+          <li className="text-sm flex bg-white rounded-md py-2 px-2">
+            <ProfileIcon className="mr-2 text-lg" />
+            <Link className="hover:text-orange-500 transition-all" href="/account">
+              Profile
+            </Link>
+          </li>
+        </ul>
 
-      <h4 className="mt-10 mb-4 text-gray-400 font-Montserrat text-xs">COMING SOON</h4>
-      <ul className="items-center justify-center space-y-4 ">
-        <li className="text-sm flex bg-white rounded-md py-2 px-2">
-          <MdMail className="mr-2 text-lg" />
-          Messages
-        </li>
-        <li className="text-sm flex bg-white rounded-md py-2 px-2">
-          <RiGalleryFill className="mr-2 text-lg" />
-          NFT Gallery
-        </li>
-        <li className="text-sm flex bg-white rounded-md py-2 px-2">
-          <BsFillLightningChargeFill className="mr-2 text-lg" />
-          Integrations
-        </li>
-        <li className="text-sm flex bg-white rounded-md py-2 px-2">
-          <ImEmbed2 className="mr-2 text-lg" />
-          Buttons & Graphics
-        </li>
-      </ul>
+        <h4 className="mt-10 mb-4 text-gray-400 font-Montserrat text-xs">COMING SOON</h4>
+        <ul className="items-center justify-center space-y-4 ">
+          <li className="text-sm flex bg-white rounded-md py-2 px-2">
+            <MdMail className="mr-2 text-lg" />
+            Messages
+          </li>
+          <li className="text-sm flex bg-white rounded-md py-2 px-2">
+            <RiGalleryFill className="mr-2 text-lg" />
+            NFT Gallery
+          </li>
+          <li className="text-sm flex bg-white rounded-md py-2 px-2">
+            <BsFillLightningChargeFill className="mr-2 text-lg" />
+            Integrations
+          </li>
+          <li className="text-sm flex bg-white rounded-md py-2 px-2">
+            <ImEmbed2 className="mr-2 text-lg" />
+            Buttons & Graphics
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }
