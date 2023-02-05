@@ -130,7 +130,7 @@ export default function Contract({
         style={{ marginTop: 25, width: "100%" }}
         loading={contractDisplay && contractDisplay.length <= 0}
       >
-        {contractIsDeployed ? contractDisplay : noContractDisplay}
+        {contractIsDeployed ? contractDisplay : contractDisplay}
       </Card>
     </div>
   );

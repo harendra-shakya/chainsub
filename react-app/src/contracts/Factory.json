@@ -1,12 +1,6 @@
 [
 	{
-		"inputs": [
-			{
-				"internalType": "contract IEncryptionOracle",
-				"name": "_oracle",
-				"type": "address"
-			}
-		],
+		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
@@ -26,7 +20,7 @@
 				"type": "address"
 			}
 		],
-		"name": "CreateSubscription",
+		"name": "CreateProfile",
 		"type": "event"
 	},
 	{
@@ -49,35 +43,38 @@
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tier1Price",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tier2Price",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tier3Price",
-				"type": "uint256"
-			}
-		],
-		"name": "createSubscriptionContract",
+		"inputs": [],
+		"name": "createProfileContract",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
 		"inputs": [],
-		"name": "getSubscriptionContract",
+		"name": "getProfileContract",
 		"outputs": [
 			{
 				"internalType": "address",
-				"name": "_subscriptionContract",
+				"name": "_profileContract",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address payable",
+				"name": "_profileContract",
+				"type": "address"
+			}
+		],
+		"name": "getProfileOwner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "_owner",
 				"type": "address"
 			}
 		],
@@ -92,19 +89,6 @@
 				"internalType": "bool",
 				"name": "_isCreated",
 				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "oracle",
-		"outputs": [
-			{
-				"internalType": "contract IEncryptionOracle",
-				"name": "",
-				"type": "address"
 			}
 		],
 		"stateMutability": "view",

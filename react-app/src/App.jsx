@@ -37,6 +37,8 @@ import Factory from "./contracts/Factory.json";
 import { useEventListener } from "eth-hooks/events/useEventListener";
 import Address from "./components/Address";
 import Web3Upload from "./components/Web3Upload";
+import FirebaseUI from "./components/Firebase";
+import Profile from "./components/Profile";
 
 const { ethers } = require("ethers");
 
@@ -180,8 +182,6 @@ function App(props) {
   const factoryContractWithSigner = factoryContract.connect(userSigner);
   console.log(factoryContract);
   console.log(factoryContractWithSigner);
-  const subContract = new ethers.Contract("0xe22A53E37F705dB480d9e8BDd78256c81d2F26F8", ChainSub, userSigner);
-  const subContractWithSigner = subContract.connect(userSigner);
 
   //create a useHook to listen to events
   const useEventListener = (contract, eventName, provider, listenerPollingTime) => {
@@ -206,8 +206,8 @@ function App(props) {
   };
 
   //use the useEventListener hook to listen to the CreateSubscription events on factoryContract should handle multiple events at once and create an array of events that can be mapped over
-  const createSubscriptionEvent = useEventListener(factoryContract, "CreateSubscription", userSigner, 1000);
-  console.log(createSubscriptionEvent);
+  /* const createSubscriptionEvent = useEventListener(factoryContract, "CreateSubscription", userSigner, 1000);
+  console.log(createSubscriptionEvent); */
 
   // EXTERNAL CONTRACT EXAMPLE:
   //
@@ -314,11 +314,10 @@ function App(props) {
 
   const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
 
+
   async function createSubscriptionContract() {
     try {
-      const makeSub = await tx(factoryContractWithSigner?.createSubscriptionContract(1, 2, 3), update => {
-        console.log("📡 Transaction Update:", update);
-      });
+      const makeSub = await tx(factoryContractWithSigner?.createSubscriptionContract(1, 2, 3));
       console.log(makeSub);
       //log and set the address with setChainSub
       const factoryAddress = await factoryContractWithSigner?.address;
@@ -331,22 +330,35 @@ function App(props) {
         address: factoryAddress,
         abi: ChainSub.abi,
       };
-
-      const subContract = new ethers.Contract("x0893B1500cb68cBbC4F0ea866ea77dDDcA1BDB6B", ChainSub, userSigner);
-
-      const subContractWithSigner = await subContract.connect(userSigner);
-      console.log(subContractWithSigner);
-
-      setSubContractState(subContractWithSigner);
     } catch (err) {
       console.log({ err });
     }
   }
 
-  console.log(subContractState);
+  //make an async function to initialize subscription contract when createSubscriptionEvent is emitted
+  async function initializeSubscriptionContract() {
+    try {
+      const subContract = new ethers.Contract("0x3F2D75D090387f1d5E0cfbC2b97e9323c98C2deC", ChainSub, userSigner);
+      const subContractWithSigner = await subContract.connect(userSigner);
+
+      setSubContractState(subContract);
+      console.log("subContract", subContract);
+    } catch (err) {
+      console.log({ err });
+    }
+  }
+
+  //call initializeSubscriptionContract when createSubscriptionEvent is emitted
+  /*useEffect(() => {
+    if (createSubscriptionEvent) {
+      initializeSubscriptionContract();
+    }
+  }, [createSubscriptionEvent]);
+
   //log the functions of ChainSub using the ABI found in ChainSub.json
   console.log(localProvider);
   const chainSubContracttest = useContractLoader(localProvider, ChainSubConfig);
+  */
 
   return (
     <div className="App">
@@ -397,66 +409,56 @@ function App(props) {
         <Menu.Item key="/upload">
           <Link to="/upload">Upload</Link>
         </Menu.Item>
+        <Menu.Item key="/Profile">
+          <Link to="/Profile">Profile</Link>
+        </Menu.Item>
       </Menu>
 
       <Switch>
         <Route exact path="/">
-          {/* log events from the FactoryContract */}
-          {/* log the createSubscription event from the factory contract and render each item as a list with a unique key the datasource is createSubscriptionEvent*/}
-          <List
-            header={<div>Factory Contract Events</div>}
-            bordered
-            dataSource={createSubscriptionEvent}
-            renderItem={item => (
-              <List.Item key={item.transactionHash}>
-                <Address address={item} ensProvider={mainnetProvider} fontSize={16} />
-              {createSubscriptionEvent}
-              </List.Item>
-
-
-            )}
-          />
-
-
-
-  
-
-          {/* create a button to console log the value of chainSubConfig */}
-          <Button onClick={() => console.log(ChainSubConfig, chainSubContracttest)}>Log ChainSubConfig</Button>
-
-          {/* create a button in the center of the page that uses the createSubscription function onclick*/}
-          {/* Center the button below in the middle of the page, and if it exists render the Contract component using chainSub as the address */}
-          {/* while awaiting the transaction to be mined, show a loading indicator */}
+        
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "10vh" }}>
+              {/* 
             {
               <Button onClick={createSubscriptionContract} type="primary">
                 Create Subscription Contract
               </Button>
             }
-            {
+            
+
+            
+            {createSubscriptionEvent && subContractState && subContractState.address ? (
               <Contract
-                name={"Your Subscription Contract"}
-                customContract={subContract}
+                name="ChainSub Contract Instance"
+                customContract={subContractState}
                 signer={userSigner}
+                address={subContractState.address}
                 provider={localProvider}
-                address={createSubscriptionEvent}
-                blockExplorer="https://hyperspace.filfox.info/en"
+                blockExplorer="https://hyperspace.filfox.info/en/"
                 contractConfig={ChainSubConfig}
                 chainId={3141}
               />
-            }
+            ) : (
+              <div>Awaiting Contract Deployment</div>
+            )}
+            */}
           </div>
         </Route>
 
         <Route path="/upload">
           {/* pass userSigner into the Web3Upload component */}
-          <Web3Upload userSigner={userSigner} />
+          <Web3Upload userSigner={userSigner} tx={tx} />
+        </Route>
+
+        <Route path="/profile">
+          <Profile address={address} userSigner={userSigner}  />
         </Route>
       </Switch>
 
       <ThemeSwitch />
 
       {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
+      {/* */}
       <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
         <Row align="middle" gutter={[4, 4]}>
           <Col span={8}>

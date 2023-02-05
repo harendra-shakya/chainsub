@@ -25,3 +25,5 @@ export { default as NetworkSwitch } from "./NetworkSwitch";
 export { default as MultiAddressInput } from "./MultiAddressInput";
 export { default as TokenSelect } from "./TokenSelect";
 export { default as Web3Upload } from "./Web3Upload";
+export { default as FirebaseUI } from "./Firebase";
+export { default as Profile } from "./Profile";
