@@ -42,7 +42,11 @@ export default function RainbowKitCustomConnectButton() {
             {(() => {
               if (!connected) {
                 return (
-                  <button className="btn btn-primary btn-sm" onClick={openConnectModal} type="button">
+                  <button
+                    className="btn btn-primary btn-md bg-yellow-500 hover:bg-yellow-600"
+                    onClick={openConnectModal}
+                    type="button"
+                  >
                     Connect Wallet
                   </button>
                 );
@@ -53,7 +57,7 @@ export default function RainbowKitCustomConnectButton() {
                   <div className="rounded-md shadow-lg p-2">
                     <span className="text-error mr-2">Wrong network selected - ({chain.name})</span>
                     <span className="text-primary mr-2">Switch network to</span>
-                    <button className="btn btn-xs btn-primary btn-outline" onClick={onSwitchNetwork}>
+                    <button className="btn btn-xs btn-primary" onClick={onSwitchNetwork}>
                       {publicNetworkName}
                     </button>
                   </div>

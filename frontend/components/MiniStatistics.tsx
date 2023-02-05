@@ -15,7 +15,7 @@ const MiniStatistics = ({ title, amount, percentage, icon }) => {
       <CardBody>
         <Flex flexDirection="row" align="center" justify="center" w="100%">
           <Stat me="auto">
-            <StatLabel fontSize="sm" color="gray.400" fontWeight="bold" pb=".1rem">
+            <StatLabel fontSize="sm" color="white.400" fontWeight="bold" pb=".1rem">
               {title}
             </StatLabel>
             <Flex>

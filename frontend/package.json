@@ -12,12 +12,13 @@
     "check-types": "tsc --noEmit --incremental"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.4.9",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@ethersproject/networks": "^5.7.1",
     "@ethersproject/web": "^5.7.1",
-    "@heroicons/react": "^2.0.11",
+    "@heroicons/react": "^2.0.14",
     "@rainbow-me/rainbowkit": "^0.8.1",
     "@uniswap/sdk": "^3.0.3",
     "daisyui": "^2.31.0",
