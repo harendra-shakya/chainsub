@@ -17,7 +17,7 @@ export default function Sidebar(props) {
     <div className="hidden left-[5%] pt-24 text-2xl scale-150 md:scale-130 md:mx-auto top-24 lg:block lg:absolute">
       <div className="m-8 font-CircularMedium mt-16 dark:text-slate-50 tracking-wide">
         <ul className="items-center justify-center space-y-4  ">
-          <li className="text-sm flex bg-white rounded-md py-2 px-2 shadow">
+          <li className="text-sm flex bg-white rounded-md py-2 px-2">
             <HomeIcon className="mr-2 text-lg " />
             <Link className="" href="/dashboard">
               Dashboard
