@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SimpleGrid,
   Stack,
@@ -19,10 +19,67 @@ import {
 
 import { ProfileIcon } from "../components/Icons/Icons";
 import Sidebar from "~~/components/Sidebar/Sidebar";
+import { Web3Storage } from "web3.storage";
 
 export default function Account() {
   // redirect to user page
+  const [file, setFile] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [ipfsCid, setIpfsCid] = useState(); //ipfs cid
+  const [json, setJson] = useState(); //json to be uploaded
+  const [profilepictureURI, setProfilePictureURI] = useState(); //profile picture uri
+  const [name, setName] = useState(); //name of the user
+  const [description, setDescription] = useState(); //description of the user
+
+
+  //get the token from the .env file
+  const client = new Web3Storage({ token: process.env.NEXT_PUBLIC_REACT_APP_WEB3STORAGE_API_KEY });
+  console.log(client);
+
+
+  
+  const uploadProfilePicture = async () => {
+    const client = new Web3Storage({ token: process.env.NEXT_PUBLIC_REACT_APP_WEB3STORAGE_API_KEY });
+    console.log(client);
+    const profilePic = new File([file], "profilepicture", {
+      type: "image",
+    });
+
+    const cid = await client.put([profilePic]);
+    setProfilePictureURI(cid);
+    console.log(cid);
+  };
+
+  const createJSON = () => {
+    const json = {
+      "name": `${name}`,
+      "description": `${description}`,
+      "image": `https://ipfs.io/ipfs/${profilepictureURI}`,
+      "attributes":[{"traitType":"type","value":"profile"}]
+    };
+
+    setJson(json);
+    console.log(json);
+
+    return json;
+  };
+
+  const handleUpload = async () => {
+    setStatus("Uploading...");
+    const client = new Web3Storage({ token: process.env.NEXT_PUBLIC_REACT_APP_WEB3STORAGE_API_KEY });
+    //create a JSON file the will be uploaded to ipfs
+    const fileA = new File([JSON.stringify(json)], `${name}.json`, {
+      type: "application/json",
+    });
+
+    const cid = await client.put([fileA]);
+    setIpfsCid(cid);
+    console.log(cid);
+    setStatus("Uploaded cid", ipfsCid);
+  };
+  
   return (
+
     <div className="p-36 min-h-[calc(100vh-163px)] flex flex-col justify-between">
       <Sidebar />
       <Box
@@ -102,7 +159,7 @@ export default function Account() {
                           color: "gray.50",
                         }}
                       >
-                        First name
+                        Name
                       </FormLabel>
                       <Input
                         type="text"
@@ -115,34 +172,10 @@ export default function Account() {
                         size="sm"
                         w="full"
                         rounded="md"
+                        onChange={e => setName(e.target.value)}
                       />
                     </FormControl>
 
-                    <FormControl as={GridItem} colSpan={[6, 3]}>
-                      <FormLabel
-                        htmlFor="last_name"
-                        fontSize="sm"
-                        fontWeight="md"
-                        color="gray.700"
-                        _dark={{
-                          color: "gray.50",
-                        }}
-                      >
-                        Last name
-                      </FormLabel>
-                      <Input
-                        type="text"
-                        name="last_name"
-                        id="last_name"
-                        autoComplete="family-name"
-                        mt={1}
-                        focusBorderColor="brand.400"
-                        shadow="sm"
-                        size="sm"
-                        w="full"
-                        rounded="md"
-                      />
-                    </FormControl>
                   </SimpleGrid>
 
                   <div>
@@ -163,9 +196,11 @@ export default function Account() {
                         rows={3}
                         shadow="sm"
                         focusBorderColor="brand.400"
+                        onChange={e => setDescription(e.target.value)}
                         fontSize={{
                           sm: "sm",
                         }}
+                        
                       />
                     </FormControl>
                   </div>
@@ -201,6 +236,19 @@ export default function Account() {
                           />
                         }
                       />
+                      <Input
+                        type="file"
+                        name="Select a file"
+                        id="file"
+                        autoComplete="file"
+                        mt={1}
+                        focusBorderColor="brand.400"
+                        shadow="sm"
+                        size="sm"
+                        w="full"
+                        rounded="md"
+                        onChange={e => setFile(e.target.files[0])}
+                      />
                       <Button
                         type="button"
                         ml={5}
@@ -210,9 +258,39 @@ export default function Account() {
                         _focus={{
                           shadow: "none",
                         }}
+                        onClick={uploadProfilePicture}
+
+                        
                       >
-                        Change
+                        Upload Profile Picture to IPFS
                       </Button>
+                      <Button
+
+                        type="button"
+                        ml={5}
+                        variant="outline"
+                        size="sm"
+                        fontWeight="medium"
+
+                        _focus={{
+                          shadow: "none",
+                        }}
+                        onClick={createJSON}
+                      > Create JSON
+                      </Button>
+                      <Button
+                        type="button"
+                        ml={5}
+                        variant="outline"
+                        size="sm"
+                        fontWeight="medium"
+                        _focus={{
+                          shadow: "none",
+                        }}
+                        onClick={handleUpload}
+                      > Upload JSON to IPFS
+                      </Button>
+                      
                     </Flex>
                   </FormControl>
                 </Stack>
@@ -224,4 +302,5 @@ export default function Account() {
       ;
     </div>
   );
+
 }
