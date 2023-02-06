@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Features from "~~/components/Features";
 
 function Home() {
   return (
@@ -37,6 +38,9 @@ function Home() {
             *It&apos;s free and takes only a minute.
           </p>
         </div>
+      </section>
+      <section className="rounded-md">
+        <Features />
       </section>
     </div>
   );
