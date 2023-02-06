@@ -46,6 +46,7 @@ export default function MembershipCard() {
   const [chainSymbol, setChainSybol] = useState("");
   const [txLoading, setTxLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
 
   const user = "Harendra";
 
@@ -122,14 +123,14 @@ export default function MembershipCard() {
             type="submit"
             className="font-CircularMedium bg-yellow-500 rounded-full mt-3 py-3 w-72 text-center disabled:bg-gray-200 md:max-w-xs md:mx-auto hover:scale-105 transition-all dark:text-black disabled:scale-100"
           >
-            {
+            {isConnecting && (
               <>
                 <div role="status">
                   <SiCoffeescript className="inline text-2xl animate-spin -mt-1 mr-3 text-orange-600" />
                   <span className="">Waiting for wallet...</span>
                 </div>
               </>
-            }
+            )}
             {txLoading && (
               <>
                 <div role="status">
