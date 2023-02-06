@@ -38,7 +38,7 @@ export default function Balance({ address }: TBalanceProps) {
         {isEthBalance ? (
           <>
             <span>{balance?.toFixed(4)}</span>
-            <span className="text-xs font-bold m-1">ETH</span>
+            <span className="text-xs font-bold m-1">tFIL</span>
           </>
         ) : (
           <>

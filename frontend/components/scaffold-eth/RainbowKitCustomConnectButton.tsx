@@ -5,6 +5,7 @@ import { TAutoConnect, useAutoConnect } from "~~/hooks/scaffold-eth";
 import Balance from "~~/components/scaffold-eth/Balance";
 import { useSwitchNetwork } from "wagmi";
 import * as chain from "wagmi/chains";
+import { configureChains } from 'wagmi'
 
 // todo: move this later scaffold config.  See TAutoConnect for comments on each prop
 const tempAutoConnectConfig: TAutoConnect = {
@@ -22,11 +23,13 @@ export default function RainbowKitCustomConnectButton() {
   const { switchNetwork } = useSwitchNetwork();
 
   const publicNetworkName = String(process.env.NEXT_PUBLIC_NETWORK).toLowerCase() as ChainName;
-  const definedChain = chain[publicNetworkName];
+  const definedChain = 3141;
+
+
 
   const onSwitchNetwork = () => {
     if (definedChain && switchNetwork) {
-      switchNetwork(definedChain?.id);
+      switchNetwork(3141);
       return;
     }
   };
@@ -35,7 +38,9 @@ export default function RainbowKitCustomConnectButton() {
     <ConnectButton.Custom>
       {({ account, chain, openAccountModal, openChainModal, openConnectModal, mounted }) => {
         const ready = mounted;
+
         const connected = ready && account && chain;
+   
 
         return (
           <>
@@ -52,7 +57,7 @@ export default function RainbowKitCustomConnectButton() {
                 );
               }
 
-              if (chain.unsupported || chain.id !== definedChain?.id) {
+              if (definedChain != connected.id) {
                 return (
                   <div className="rounded-md shadow-lg p-2">
                     <span className="text-error mr-2">Wrong network selected - ({chain.name})</span>

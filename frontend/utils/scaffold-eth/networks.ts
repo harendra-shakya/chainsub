@@ -128,6 +128,11 @@ export const NETWORKS: Record<string, TChainAttributes> = {
     color: "#53CBC9",
     chainId: 1281,
   },
+  hyperspace: {
+    name: "Hyperspace",
+    color: "#52ADC5",
+    chainId: 3141,
+  },
 };
 
 /**
@@ -149,9 +154,9 @@ export function getBlockExplorerTxLink(network: Network, txnHash: string) {
     blockExplorerNetwork = name + ".";
   }
 
-  let blockExplorerBaseTxUrl = "https://" + blockExplorerNetwork + "etherscan.io/tx/";
+  let blockExplorerBaseTxUrl = "https://" + blockExplorerNetwork + ".filfox.info/en/message";
   if (chainId === 100) {
-    blockExplorerBaseTxUrl = "https://blockscout.com/poa/xdai/tx/";
+    blockExplorerBaseTxUrl = "https://hyperspace.filfox.info/en/message";
   }
 
   const blockExplorerTxURL = blockExplorerBaseTxUrl + txnHash;

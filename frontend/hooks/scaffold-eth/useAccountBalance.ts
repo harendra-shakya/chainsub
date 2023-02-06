@@ -7,6 +7,7 @@ export function useAccountBalance(address?: string) {
   const [balance, setBalance] = useState<number | null>(null);
   const price = useAppStore(state => state.ethPriceSlice.ethPrice);
 
+
   const {
     data: fetchedBalanceData,
     isError,
