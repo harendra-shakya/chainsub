@@ -1,4 +1,6 @@
-[CoffeeTown Demo](https://ethglobal.com/showcase/coffeetown-92mma)
+[CoffeeTown Demo](https://ethglobal.com/showcase/coffeetown-92mma) 
+
+[Figma File](https://www.figma.com/file/VFHQPis3CdzrcYtUpTImAN/CoffeeTown-UI-Designs?type=design&node-id=0-1&mode=design) © Designed By Harendra Shakya
 
 ### Project Description
 
